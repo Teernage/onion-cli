@@ -40,8 +40,7 @@ export async function clone(url: string, projectName: string, options: string[])
     console.log(chalk.blackBright('========欢迎使用 onion-cli 脚手架====='));
     console.log(chalk.blackBright('===================================='));
     console.log();
-    console.log();
-
+    console.log(chalk.blackBright('======cd projectName ====='));
     console.log(chalk.blackBright('========请使用 pnpm install 安装依赖====='));
     console.log(chalk.blackBright('========pnpm run dev 运行项目====='));
 
