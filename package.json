@@ -1,9 +1,26 @@
 {
-  "version": "1.0.0",
-  "description": "",
+  "name": "@xzx/onion-cli",
+  "version": "0.0.1",
+  "description": "onion-cli 脚手架",
   "scripts": {
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs"
   },
+  "keywords": [
+    "Vite",
+    "Vue3",
+    "TypeScript",
+    "Element-plus"
+  ],
+  "author": "zhenxinxu",
+  "license": "ISC",
+  "bin": {
+    "onion": "bin/index.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md"
+  ],
   "devDependencies": {
     "@inquirer/prompts": "^3.3.2",
     "@rollup/plugin-commonjs": "^25.0.8",
