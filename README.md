@@ -1,6 +1,6 @@
 # onion-cli
 
-![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.1-green)
+![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.3-green)
 
 ## 简介
 
@@ -13,7 +13,7 @@
 ## 安装
 
 ```bash
-npm install -g onion-cli
+npm install xzx-onion-cli -g
 ```
 
 ## 使用
@@ -32,31 +32,3 @@ onion --version
 
 
 ```
-
-## 命令
-
-### init
-
-初始化一个 onion 项目。
-
-```bash
-onion-cli init
-```
-
-### add
-
-添加一个组件到 onion 项目中。
-
-```bash
-onion-cli add <component-name>
-```
-
-### remove
-
-从 onion 项目中移除一个组件。
-
-```bash
-onion-cli remove <component-name>
-```
-
-### list
