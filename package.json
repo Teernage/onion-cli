@@ -1,6 +1,6 @@
 {
   "name": "@a_different_teenager/onion-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "onion-cli 脚手架",
   "scripts": {
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs"
