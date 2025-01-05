@@ -32,7 +32,7 @@ export async function clone(url: string, projectName: string, options: string[])
   try {
 
     await logger(git.clone(url, projectName, options), '代码下载中...', {
-      estimated: 7000 // 预计下载时间
+      estimate: 7000 // 预计下载时间
     })
 
     console.log(chalk.green('代码下载完成！'));
