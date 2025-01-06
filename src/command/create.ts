@@ -16,17 +16,23 @@ export interface TemplateInfo {
  */
 export const templates: Map<string, TemplateInfo> = new Map(
   [
-    ["Vite4-Vue3-Typescript-template", {
+    ["vue3-Ts-chrome-newtab-extensions-template", {
       name: "admin-template",
-      downloadUrl: 'https://github.com/Teernage/T-UI.git',
-      description: 'Vue3技术栈开发模板',
+      downloadUrl: 'https://github.com/Teernage/onion-vue-template.git',
+      description: 'Vue3技术栈开发chrome标签页模板',
       branch: 'main'
     }],
-    ["Vite4-react-Typescript-template", {
+    ["vue3-Ts-chrome-sidebar-extensions-template", {
       name: "admin-template",
-      downloadUrl: 'https://github.com/Teernage/T-UI.git',
-      description: 'react技术栈开发模板',
-      branch: 'main'
+      downloadUrl: 'https://github.com/Teernage/onion-vue-template.git',
+      description: 'Vue3技术栈开发chrome侧边栏模板',
+      branch: 'feature_xzx_chrome_sidebar_extension'
+    }],
+    ["vue3-Ts-chrome-popup-extensions-template", {
+      name: "admin-template",
+      downloadUrl: 'https://github.com/Teernage/onion-vue-template.git',
+      description: 'Vue3技术栈开发chrome弹窗模板',
+      branch: 'feature_xzx_chrome_popup_extension'
     }]
   ]);
 
