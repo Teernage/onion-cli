@@ -1,6 +1,6 @@
 # onion-cli
 
-![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.4-green)
+![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.7-green)
 
 ## 简介
 
@@ -9,6 +9,13 @@
 ## 模版
 
 - 快速生成 Vue3 + TS + Vite + Pinia + Axios + Mock 的模板
+
+📦 Select Chrome Extension type:
+
+1. web (web 页面)
+2. Popup Extension (工具栏弹出窗口)
+3. Sidebar Extension (侧边栏面板)
+4. Tab Extension (新标签页)
 
 ## 安装
 
@@ -29,6 +36,5 @@ onion create my-app
 onion -v
 或
 onion --version
-
 
 ```
