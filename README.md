@@ -1,6 +1,6 @@
 # onion-cli
 
-![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.10-green)
+![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.13-green)
 
 ## 简介
 
@@ -8,24 +8,21 @@
 
 ## 模版
 
-- 快速生成 Vue3 + TS + Vite + Pinia + Axios + Mock 的模板
+- 快速生成 Vue3 + TS + Vite + Pinia + Axios + Mock + ESLint + Prettier + Husky 的模板
 
 📦 Select type:
 
-Chrome Extension (浏览器扩展)
+1. Web Page (web 项目)
 
-1. Popup Extension (工具栏弹出窗口)
-2. Sidebar Extension (侧边栏面板)
-3. Tab Extension (新标签页)
+2. Chrome Extension (浏览器扩展)
 
-Web Page (web 项目)
+   - 支持通过一条指令直接生成 .crx 文件，无需手动打开浏览器打包。
 
-1. vue3 + ts + vite + pinia + axios + mock
-2. react + ts (待完善)
-3. svelte + ts (待完善)
+   - Popup Extension (工具栏弹出窗口)
+   - Sidebar Extension (侧边栏面板)
+   - Tab Extension (新标签页)
 
-Component Library (组件库)
-...待完善
+3. Component Library (组件库) ...待完善
 
 ## 安装
 
