@@ -2,6 +2,10 @@
   "name": "xzx-onion-cli",
   "version": "0.0.14",
   "description": "onion-cli 脚手架",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Teernage/onion-vue-template.git"
+  },
   "scripts": {
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs"
   },
