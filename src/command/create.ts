@@ -18,7 +18,8 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-web-page-template',
     {
       name: 'admin-template',
-      downloadUrl: 'https://github.com/Teernage/onion-vue-template.git',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发web项目',
       branch: 'feature_xzx_web_page',
     },
@@ -28,6 +29,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
     {
       name: 'admin-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome标签页模板',
       branch: 'main',
     },
@@ -37,6 +39,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
     {
       name: 'admin-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome侧边栏模板',
       branch: 'feature_xzx_chrome_sidebar_extension',
     },
@@ -46,12 +49,19 @@ export const templates: Map<string, TemplateInfo> = new Map([
     {
       name: 'admin-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome弹窗模板',
       branch: 'feature_xzx_chrome_popup_extension',
     },
   ],
 ]);
 
+/**
+ * 判断是否覆盖文件
+ *
+ * @param fileName 文件名
+ * @returns 用户选择是否覆盖文件的布尔值
+ */
 export function isOverwrite(fileName: string) {
   console.warn(`${fileName} 已存在，是否覆盖？`);
   return select({
