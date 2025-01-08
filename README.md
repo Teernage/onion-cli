@@ -1,6 +1,12 @@
 # onion-cli
 
-![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.14-green)
+![Npm 版本](https://img.shields.io/badge/onion-cli_v0.0.15-green)
+
+## 🔗 相关链接
+
+- [📘 使用文档](https://teernage.github.io/onion-cli-homepage/)
+- [💻 GitHub 仓库](https://github.com/Teernage/onion-cli)
+- [🐛 问题反馈](https://github.com/Teernage/onion-cli/issues)
 
 ## 简介
 
