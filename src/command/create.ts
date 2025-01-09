@@ -2,6 +2,10 @@ import { select, input } from '@inquirer/prompts';
 import { clone } from './clone';
 import path from 'path';
 import fs from 'fs-extra';
+import { name, version } from '../../package.json';
+import axios, { AxiosResponse } from 'axios';
+import { gt } from 'lodash';
+import chalk from 'chalk';
 
 export interface TemplateInfo {
   name: string;
@@ -56,6 +60,51 @@ export const templates: Map<string, TemplateInfo> = new Map([
   ],
 ]);
 
+
+/**
+ * 获取npm包的信息
+ *
+ * @param npmName npm包的名称
+ */
+async function getNpmInfo(npmName: string) {
+  const npmUrl = `https://registry.npmjs.org/${name}`;
+  let res = {}
+  try {
+    res = await axios.get(npmUrl);
+  } catch (error) {
+    console.error(error);
+  }
+  return res
+}
+
+
+/**
+ * 获取指定 npm 包的最新版本号
+ *
+ * @param name 需要查询的 npm 包名
+ */
+async function getNpmLatestVersion(name: string) {
+  const { data } = await getNpmInfo(name) as AxiosResponse;
+  return data['dist-tags'].latest;
+}
+
+/**
+ * 检查脚手架版本更新
+ *
+ * @param name 软件名称
+ * @param version 当前版本号
+ */
+export async function checkVersion(name: string, version: string) {
+  // 检查版本更新
+  const lastVersion = await getNpmLatestVersion(name);
+  const needUpdate = gt(lastVersion, version);
+  if (needUpdate) {
+    console.warn(`发现当前脚手架的最新版本为${chalk.blackBright(lastVersion)}，当前版本为${chalk.blackBright(version)}`);
+    console.log(`可使用${chalk.yellow('npm install xzx-onion-cli@latest -g')}，或者使用：${chalk.yellow('onion update')}指令更新！`);
+  }
+  return needUpdate;
+}
+
 /**
  * 判断是否覆盖文件
  *
@@ -73,6 +122,12 @@ export function isOverwrite(fileName: string) {
   });
 }
 
+/**
+ * 创建一个新的项目
+ *
+ * @param projectName 项目名称，如果未提供，则通过命令行输入
+ * @returns 无返回值
+ */
 export async function create(projectName?: string) {
   if (!projectName) {
     projectName = await input({ message: '请输入项目名称' });
@@ -87,6 +142,8 @@ export async function create(projectName?: string) {
       return;
     }
   }
+  // 检查版本更新
+  await checkVersion(name, version);
 
   console.log('create', projectName);
 
