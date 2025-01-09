@@ -45,9 +45,12 @@ onion create
  # 创建指定名称的项目
 onion create my-app
 
+
 # 查看脚手架版本
 onion -v
 或
 onion --version
 
+# 更新脚手架到最新版本
+onion update
 ```

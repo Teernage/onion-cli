@@ -1,5 +1,5 @@
 import { select, input } from '@inquirer/prompts';
-import { clone } from './clone';
+import { clone } from '../utils/clone';
 import path from 'path';
 import fs from 'fs-extra';
 import { name, version } from '../../package.json';

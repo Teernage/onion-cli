@@ -1,6 +1,7 @@
 import { Command } from 'commander'
 import { version } from '../package.json'
 import { create } from './command/create'
+import { update } from './command/update';
 
 // 这里我们用 onion 当作我的指令名称
 // 根目录下 node ./dist/index.js  onion -v
@@ -8,6 +9,13 @@ const program = new Command('onion');
 
 
 program.version(version, '-v, --version');
+
+program
+  .command('update')
+  .description('更新脚手架 xzx-onion 版本')
+  .action(async () => {
+    await update()
+  })
 
 program
   .command('create')

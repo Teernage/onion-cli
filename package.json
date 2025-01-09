@@ -43,7 +43,7 @@
     "fs-extra": "^11.2.0",
     "lodash": "^4.17.21",
     "log-symbols": "^4.1.0",
-    "ora": "5",
+    "ora": "^5.4.1",
     "progress-estimator": "^0.3.1",
     "pure-thin-cli": "^0.1.8",
     "rollup": "^4.29.1",
