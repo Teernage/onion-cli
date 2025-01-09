@@ -17,7 +17,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
   [
     'vue3-Ts-web-page-template',
     {
-      name: 'admin-template',
+      name: 'web-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发web项目',
@@ -27,7 +27,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
   [
     'vue3-Ts-chrome-newtab-extensions-template',
     {
-      name: 'admin-template',
+      name: 'chrome-newtab-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome标签页模板',
@@ -37,7 +37,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
   [
     'vue3-Ts-chrome-sidebar-extensions-template',
     {
-      name: 'admin-template',
+      name: 'chrome-sidebar-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome侧边栏模板',
@@ -47,7 +47,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
   [
     'vue3-Ts-chrome-popup-extensions-template',
     {
-      name: 'admin-template',
+      name: 'chrome-popup-template',
       downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome弹窗模板',
@@ -109,7 +109,7 @@ export async function create(projectName?: string) {
     const chromeTemplateList = Array.from(templates)
       .filter(([key]) => key.includes('chrome'))
       .map(([name, info]) => ({
-        name: info.description,
+        name: info.name,
         value: name,
         description: info.description,
       }));
