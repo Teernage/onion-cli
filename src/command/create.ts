@@ -60,23 +60,23 @@ export const templates: Map<string, TemplateInfo> = new Map([
   ],
 ]);
 
-
 /**
  * 获取npm包的信息
  *
  * @param npmName npm包的名称
  */
 async function getNpmInfo(npmName: string) {
-  const npmUrl = `https://registry.npmjs.org/${name}`;
-  let res = {}
+  // const npmUrl = `https://registry.npmjs.org/${npmName}`;
+  // 使用淘宝镜像
+  const npmUrl = `https://registry.npmmirror.com/${npmName}`;
+  let res = {};
   try {
     res = await axios.get(npmUrl);
   } catch (error) {
     console.error(error);
   }
-  return res
+  return res;
 }
-
 
 /**
  * 获取指定 npm 包的最新版本号
@@ -84,7 +84,7 @@ async function getNpmInfo(npmName: string) {
  * @param name 需要查询的 npm 包名
  */
 async function getNpmLatestVersion(name: string) {
-  const { data } = await getNpmInfo(name) as AxiosResponse;
+  const { data } = (await getNpmInfo(name)) as AxiosResponse;
   return data['dist-tags'].latest;
 }
 
@@ -99,8 +99,16 @@ export async function checkVersion(name: string, version: string) {
   const lastVersion = await getNpmLatestVersion(name);
   const needUpdate = gt(lastVersion, version);
   if (needUpdate) {
-    console.warn(`发现当前脚手架的最新版本为${chalk.blackBright(lastVersion)}，当前版本为${chalk.blackBright(version)}`);
-    console.log(`可使用${chalk.yellow('npm install xzx-onion-cli@latest -g')}，或者使用：${chalk.yellow('onion update')}指令更新！`);
+    console.warn(
+      `发现当前脚手架的最新版本为${chalk.blackBright(
+        lastVersion
+      )}，当前版本为${chalk.blackBright(version)}`
+    );
+    console.log(
+      `可使用${chalk.yellow(
+        'npm install xzx-onion-cli@latest -g'
+      )}，或者使用：${chalk.yellow('onion update')}指令更新！`
+    );
   }
   return needUpdate;
 }
