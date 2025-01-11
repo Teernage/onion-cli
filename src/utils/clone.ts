@@ -1,6 +1,9 @@
 import simpleGit, { SimpleGitOptions } from 'simple-git';
 import createLogger from 'progress-estimator';
 import chalk from 'chalk';
+import log from './log';
+
+const figlet = require('figlet');
 
 // 初始化进度条
 const logger = createLogger({
@@ -11,6 +14,18 @@ const logger = createLogger({
     ),
   },
 });
+
+/**
+ * 打印一个彩色字符串到控制台。
+ *
+ * 使用 figlet 库将文本转换为 ASCII 艺术，并使用 chalk 库将文本着色为亮绿色。
+ *
+ * @returns 无返回值
+ */
+const goodPrinter = async () => {
+  const data = await figlet('xzx-onion-cli')
+  console.log(chalk.greenBright(`${data}`));
+};
 
 const gitOptions: Partial<SimpleGitOptions> = {
   baseDir: process.cwd(), // 当前目录
@@ -36,18 +51,17 @@ export async function clone(
     await logger(git.clone(url, projectName, options), '代码下载中...', {
       estimate: 10000, // 预计下载时间
     });
-
-    console.log(chalk.green('代码下载完成！'));
+    goodPrinter()
     console.log(chalk.blackBright('===================================='));
     console.log(chalk.blackBright('========欢迎使用 onion-cli 脚手架====='));
     console.log(chalk.blackBright('===================================='));
     console.log();
-    console.log(chalk.blackBright('========      cd projectName      ====='));
-    console.log(
-      chalk.blackBright('========请使用 pnpm install 安装依赖 =====')
-    );
-    console.log(chalk.blackBright('========pnpm run dev 运行项目====='));
+    log.success(`项目创建成功 ${chalk.blueBright(projectName)}`);
+    log.success(`执行一下命令启动项目`)
+    log.info(`cd ${chalk.blueBright(projectName)}`);
+    log.info(`${chalk.yellow('pnpm')} install`);
+    log.info(`${chalk.yellow('pnpm')} run dev`);
   } catch (error) {
-    console.error(chalk.red('代码下载失败：', error));
+    log.error(chalk.red('代码下载失败：', error));
   }
 }
