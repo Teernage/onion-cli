@@ -14,6 +14,60 @@ export interface TemplateInfo {
   description: string;
 }
 
+// 添加全局的信号处理  
+process.on('SIGINT', () => {
+  console.log('\n👋 感谢使用 onion-cli');
+  process.exit(0);
+});
+
+/**
+ * 封装 select 函数以处理用户使用脚手架期间control c中断程序 
+ * @param options 
+ * @returns 
+ */
+async function safeSelect<T>(options: any): Promise<T> {
+  try {
+    return await select(options);
+  } catch (error: any) {
+    if (error?.message?.includes('User force closed')) {
+      console.log('\n👋 感谢使用 onion-cli');
+      process.exit(0);
+    }
+    throw error;
+  }
+}
+
+
+
+/**
+ * 封装 input 函数以处理用户使用脚手架期间control c中断程序 
+ * @param options 
+ * @returns 
+ */
+async function safeInput(options: any): Promise<string> {
+  try {
+    return await input(options);
+  } catch (error: any) {
+    if (error?.message?.includes('User force closed')) {
+      console.log('\n👋 感谢使用 onion-cli');
+      process.exit(0);
+    }
+    throw error;
+  }
+}
+
+export async function isOverwrite(fileName: string): Promise<boolean> {
+  console.warn(`${fileName} 已存在，是否覆盖？`);
+  return await safeSelect({
+    message: '是否覆盖?',
+    choices: [
+      { name: '是', value: true },
+      { name: '否', value: false },
+    ]
+  });
+
+}
+
 /**
  * 模板列表
  */
@@ -113,22 +167,6 @@ export async function checkVersion(name: string, version: string) {
   return needUpdate;
 }
 
-/**
- * 判断是否覆盖文件
- *
- * @param fileName 文件名
- * @returns 用户选择是否覆盖文件的布尔值
- */
-export function isOverwrite(fileName: string) {
-  console.warn(`${fileName} 已存在，是否覆盖？`);
-  return select({
-    message: '是否覆盖?',
-    choices: [
-      { name: '是', value: true },
-      { name: '否', value: false },
-    ],
-  });
-}
 
 /**
  * 创建一个新的项目
@@ -137,59 +175,67 @@ export function isOverwrite(fileName: string) {
  * @returns 无返回值
  */
 export async function create(projectName?: string) {
-  if (!projectName) {
-    projectName = await input({ message: '请输入项目名称' });
-  }
-
-  const filePath = path.resolve(process.cwd(), projectName);
-  if (fs.existsSync(filePath)) {
-    const run = await isOverwrite(projectName);
-    if (run) {
-      await fs.remove(filePath);
-    } else {
-      return;
+  try {
+    if (!projectName) {
+      projectName = await safeInput({
+        message: '请输入项目名称'
+      });
     }
-  }
-  // 检查版本更新
-  await checkVersion(name, version);
 
-  console.log('create', projectName);
+    const filePath = path.resolve(process.cwd(), projectName);
+    if (fs.existsSync(filePath)) {
+      const run = await isOverwrite(projectName);
+      if (!run) {
+        process.exit(0);
+      } else {
+        await fs.remove(filePath);
+      }
+    }
+    // 检查版本更新
+    await checkVersion(name, version);
 
-  // 先选择项目类型
-  const projectType = await select({
-    message: '请选择项目类型',
-    choices: [
-      { name: 'Web项目', value: 'web' },
-      { name: 'Chrome插件', value: 'chrome' },
-    ],
-  });
-
-  let templateName: string;
-
-  if (projectType === 'web') {
-    // Web项目直接使用第一个模板
-    templateName = 'vue3-Ts-web-page-template';
-  } else {
-    // Chrome插件选择具体类型
-    const chromeTemplateList = Array.from(templates)
-      .filter(([key]) => key.includes('chrome'))
-      .map(([name, info]) => ({
-        name: info.name,
-        value: name,
-        description: info.description,
-      }));
-
-    templateName = await select({
-      message: '请选择Chrome插件类型',
-      choices: chromeTemplateList,
+    // 先选择项目类型
+    const projectType = await safeSelect({
+      message: '请选择项目类型',
+      choices: [
+        { name: 'Web项目', value: 'web' },
+        { name: 'Chrome插件', value: 'chrome' },
+      ]
     });
+
+    let templateName: string;
+
+    if (projectType === 'web') {
+      // Web项目直接使用第一个模板
+      templateName = 'vue3-Ts-web-page-template';
+    } else {
+      // Chrome插件选择具体类型
+      const chromeTemplateList = Array.from(templates)
+        .filter(([key]) => key.includes('chrome'))
+        .map(([name, info]) => ({
+          name: info.name,
+          value: name,
+          description: info.description,
+        }));
+
+      templateName = await safeSelect({
+        message: '请选择Chrome插件类型',
+        choices: chromeTemplateList
+      });
+    }
+
+    const info = templates.get(templateName);
+    if (!info) {
+      throw new Error('未找到对应的模板信息');
+    }
+
+    await clone(info.downloadUrl, projectName, ['-b', info.branch]);
+  } catch (error: any) {
+    if (error?.message?.includes('User force closed')) {
+      console.log('\n👋 感谢使用 onion-cli');
+      process.exit(0);
+    }
+    console.error(chalk.red('❌ 发生错误:'), error.message);
+    process.exit(1);
   }
-
-  const info = templates.get(templateName);
-
-  console.log('templateInfo', info);
-
-  if (info) {
-    clone(info.downloadUrl, projectName, ['-b', info.branch]);
-  }
-}
+}  
