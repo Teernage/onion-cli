@@ -179,6 +179,7 @@ export async function create(projectName?: string) {
     let step = 1;
     let finalProjectName: string = projectName || ''; // 新增一个确定是string类型的变量  
 
+    let isNeedCreateName = false;
     while (true) {
       // 步骤1: 输入项目名称  
       if (step === 1) {
@@ -189,6 +190,7 @@ export async function create(projectName?: string) {
             message: '请输入项目名称',
             default: projectName // 如果有传入的projectName，用作默认值  
           });
+          isNeedCreateName = true;
         }
 
 
@@ -222,6 +224,7 @@ export async function create(projectName?: string) {
 
         if (projectType === 'back') {
           step = 1;
+          finalProjectName = '';
           continue;
         }
 
