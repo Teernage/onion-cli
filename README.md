@@ -1,6 +1,6 @@
 # onion-cli
 
-![Npm 版本](https://img.shields.io/badge/onion-cli_v0.1.7-green)
+![Npm 版本](https://img.shields.io/badge/onion-cli_v0.1.8-green)
 
 ## 🔗 相关链接
 

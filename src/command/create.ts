@@ -176,60 +176,104 @@ export async function checkVersion(name: string, version: string) {
  */
 export async function create(projectName?: string) {
   try {
-    if (!projectName) {
-      projectName = await safeInput({
-        message: '请输入项目名称'
-      });
-    }
+    let step = 1;
+    let finalProjectName: string = projectName || ''; // 新增一个确定是string类型的变量  
 
-    const filePath = path.resolve(process.cwd(), projectName);
-    if (fs.existsSync(filePath)) {
-      const run = await isOverwrite(projectName);
-      if (!run) {
-        process.exit(0);
-      } else {
-        await fs.remove(filePath);
+    while (true) {
+      // 步骤1: 输入项目名称  
+      if (step === 1) {
+
+        // 如果未提供项目名称，则通过命令行输入  
+        if (!finalProjectName) {
+          finalProjectName = await safeInput({
+            message: '请输入项目名称',
+            default: projectName // 如果有传入的projectName，用作默认值  
+          });
+        }
+
+
+        const filePath = path.resolve(process.cwd(), finalProjectName);
+        if (fs.existsSync(filePath)) {
+          const flag = await isOverwrite(finalProjectName);
+          if (!flag) {
+            process.exit(0);
+          } else {
+            await fs.remove(filePath);
+          }
+        }
+
+        // 检查版本更新  
+        await checkVersion(name, version);
+
+        step = 2;
+        continue;
+      }
+
+      // 步骤2: 选择项目类型  
+      if (step === 2) {
+        const projectType = await safeSelect({
+          message: '请选择项目类型',
+          choices: [
+            { name: 'Web项目', value: 'web' },
+            { name: 'Chrome插件', value: 'chrome' },
+            { name: '返回上一步', value: 'back' }
+          ]
+        });
+
+        if (projectType === 'back') {
+          step = 1;
+          continue;
+        }
+
+        if (projectType === 'web') {
+          const templateName = 'vue3-Ts-web-page-template';
+          const info = templates.get(templateName);
+          if (!info) {
+            throw new Error('未找到对应的模板信息');
+          }
+          await clone(info.downloadUrl, finalProjectName, ['-b', info.branch]);
+          break;
+        } else {
+          step = 3;
+          continue;
+        }
+      }
+
+      // 步骤3: 选择Chrome插件类型  
+      if (step === 3) {
+        const chromeTemplateList = Array.from(templates)
+          .filter(([key]) => key.includes('chrome'))
+          .map(([name, info]) => ({
+            name: info.name,
+            value: name,
+            description: info.description,
+          }));
+
+        chromeTemplateList.push({
+          name: '返回上一步',
+          value: 'back',
+          description: '返回项目类型选择'
+        });
+
+        const templateName: string = await safeSelect({
+          message: '请选择Chrome插件类型',
+          choices: chromeTemplateList
+        });
+
+        if (templateName === 'back') {
+          step = 2;
+          continue;
+        }
+
+        const info = templates.get(templateName);
+        if (!info) {
+          throw new Error('未找到对应的模板信息');
+        }
+        await clone(info.downloadUrl, finalProjectName, ['-b', info.branch]);
+        break;
       }
     }
-    // 检查版本更新
-    await checkVersion(name, version);
 
-    // 先选择项目类型
-    const projectType = await safeSelect({
-      message: '请选择项目类型',
-      choices: [
-        { name: 'Web项目', value: 'web' },
-        { name: 'Chrome插件', value: 'chrome' },
-      ]
-    });
-
-    let templateName: string;
-
-    if (projectType === 'web') {
-      // Web项目直接使用第一个模板
-      templateName = 'vue3-Ts-web-page-template';
-    } else {
-      // Chrome插件选择具体类型
-      const chromeTemplateList = Array.from(templates)
-        .filter(([key]) => key.includes('chrome'))
-        .map(([name, info]) => ({
-          name: info.name,
-          value: name,
-          description: info.description,
-        }));
-
-      templateName = await safeSelect({
-        message: '请选择Chrome插件类型',
-        choices: chromeTemplateList
-      });
-    }
-
-    const info = templates.get(templateName);
-    if (!info) {
-      throw new Error('未找到对应的模板信息');
-    }
-
-    await clone(info.downloadUrl, projectName, ['-b', info.branch]);
   } catch (error: any) {
     if (error?.message?.includes('User force closed')) {
       console.log('\n👋 感谢使用 onion-cli');
@@ -238,4 +282,4 @@ export async function create(projectName?: string) {
     console.error(chalk.red('❌ 发生错误:'), error.message);
     process.exit(1);
   }
-}  
+}
