@@ -18,7 +18,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "vitepress": "^1.0.0-rc.40"
+    "vitepress": "^1.6.3"
   },
   "dependencies": {
     "vue3-drag-directive": "^1.1.3"
