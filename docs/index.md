@@ -1,30 +1,23 @@
 ---
 layout: home
+
 hero:
-  name: Vue3 Drag Directive
-  text: 轻量级、高性能的拖拽排序解决方案
-  tagline: 简单易用的Vue3拖拽列表指令
+  name: 'onion-cli'
+  text: '脚手架'
+  tagline: 用于快速搭建前端项目的命令行工具
   image:
-    src: /img/avatar.avif
-    alt: 列表拖拽
+    src: /img/logo.webp
+    alt: 不一样的少年
   actions:
     - theme: brand
       text: 快速开始
-      link: /guide/getting-started
-    - theme: alt
-      text: 在 GitHub 上查看源码
-      link: https://github.com/Teernage/vue3-drag-directive
+      link: /content/web
+      target: _blank
 features:
-  - icon: 🚀
-    title: 高性能
-    details: 基于 FLIP 动画算法，结合分帧渲染与最小化 DOM 操作，实现丝滑、流畅的拖拽体验。
-  - icon: 💡
-    title: 轻量级
-    details: 无外部依赖，体积小，加载快
-  - icon: 🛠️
-    title: 易于使用
-    details: 以指令形式提供，简单集成到现有项目
-  - icon: 🔌
-    title: 灵活配置
-    details: 支持多种配置选项，满足不同场景需求
+  - title: Web Page (web 项目)
+    details: Vue3 + TS + Vite + Pinia + Axios + Mock + ESLint + Prettier + Husky + Commitlint
+  - title: Chrome Extension (浏览器扩展)
+    details: 支持通过一条指令直接生成 .crx 文件，无需手动打开浏览器打包。  <br/>1. Popup Extension (工具栏弹出窗口) <br/> 2. Sidebar Extension (侧边栏面板) <br/>3.Tab Extension (新标签页) 。
+  - title: Component Library (组件库) ...待完善
+    details: ...
 ---
