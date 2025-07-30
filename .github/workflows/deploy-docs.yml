@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: npm
+          cache: pnpm
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -41,12 +41,12 @@ jobs:
       - name: Install dependencies
         run: |
           cd docs
-          npm ci
+          pnpm install --frozen-lockfile  
 
       - name: Build with VitePress
         run: |
           cd docs
-          npm run build
+          pnpm build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
