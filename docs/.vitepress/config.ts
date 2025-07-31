@@ -1,7 +1,7 @@
 import { defineConfigWithTheme } from 'vitepress';
 
 export default defineConfigWithTheme({
-  title: 'xzx-onion-cli',
+  title: 'onion-cli',
   base: '/onion-cli/',
   appearance: 'dark',
   head: [['link', { rel: 'icon', href: '/onion-cli-homepage/img/icon.svg' }]],
