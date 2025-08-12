@@ -14,16 +14,16 @@ export interface TemplateInfo {
   description: string;
 }
 
-// 添加全局的信号处理  
+// 添加全局的信号处理
 process.on('SIGINT', () => {
   console.log('\n👋 感谢使用 onion-cli');
   process.exit(0);
 });
 
 /**
- * 封装 select 函数以处理用户使用脚手架期间control c中断程序 
- * @param options 
- * @returns 
+ * 封装 select 函数以处理用户使用脚手架期间control c中断程序
+ * @param options
+ * @returns
  */
 async function safeSelect<T>(options: any): Promise<T> {
   try {
@@ -37,12 +37,10 @@ async function safeSelect<T>(options: any): Promise<T> {
   }
 }
 
-
-
 /**
- * 封装 input 函数以处理用户使用脚手架期间control c中断程序 
- * @param options 
- * @returns 
+ * 封装 input 函数以处理用户使用脚手架期间control c中断程序
+ * @param options
+ * @returns
  */
 async function safeInput(options: any): Promise<string> {
   try {
@@ -63,9 +61,8 @@ export async function isOverwrite(fileName: string): Promise<boolean> {
     choices: [
       { name: '是', value: true },
       { name: '否', value: false },
-    ]
+    ],
   });
-
 }
 
 /**
@@ -76,17 +73,17 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-web-page-template',
     {
       name: 'web-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发web项目',
-      branch: 'feature_xzx_web_page',
+      branch: 'feature_web_page',
     },
   ],
   [
     'vue3-Ts-chrome-newtab-extensions-template',
     {
       name: 'chrome-newtab-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome标签页模板',
       branch: 'main',
@@ -96,20 +93,20 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-chrome-sidebar-extensions-template',
     {
       name: 'chrome-sidebar-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome侧边栏模板',
-      branch: 'feature_xzx_chrome_sidebar_extension',
+      branch: 'feature_sider_extension',
     },
   ],
   [
     'vue3-Ts-chrome-popup-extensions-template',
     {
       name: 'chrome-popup-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-vue-template.git',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome弹窗模板',
-      branch: 'feature_xzx_chrome_popup_extension',
+      branch: 'feature_popup_extension',
     },
   ],
 ]);
@@ -167,7 +164,6 @@ export async function checkVersion(name: string, version: string) {
   return needUpdate;
 }
 
-
 /**
  * 创建一个新的项目
  *
@@ -177,22 +173,20 @@ export async function checkVersion(name: string, version: string) {
 export async function create(projectName?: string) {
   try {
     let step = 1;
-    let finalProjectName: string = projectName || ''; // 新增一个确定是string类型的变量  
+    let finalProjectName: string = projectName || ''; // 新增一个确定是string类型的变量
 
     let isNeedCreateName = false;
     while (true) {
-      // 步骤1: 输入项目名称  
+      // 步骤1: 输入项目名称
       if (step === 1) {
-
-        // 如果未提供项目名称，则通过命令行输入  
+        // 如果未提供项目名称，则通过命令行输入
         if (!finalProjectName) {
           finalProjectName = await safeInput({
             message: '请输入项目名称',
-            default: projectName // 如果有传入的projectName，用作默认值  
+            default: projectName, // 如果有传入的projectName，用作默认值
           });
           isNeedCreateName = true;
         }
-
 
         const filePath = path.resolve(process.cwd(), finalProjectName);
         if (fs.existsSync(filePath)) {
@@ -204,22 +198,22 @@ export async function create(projectName?: string) {
           }
         }
 
-        // 检查版本更新  
+        // 检查版本更新
         await checkVersion(name, version);
 
         step = 2;
         continue;
       }
 
-      // 步骤2: 选择项目类型  
+      // 步骤2: 选择项目类型
       if (step === 2) {
         const projectType = await safeSelect({
           message: '请选择项目类型',
           choices: [
             { name: 'Web项目', value: 'web' },
             { name: 'Chrome插件', value: 'chrome' },
-            { name: '返回上一步', value: 'back' }
-          ]
+            { name: '返回上一步', value: 'back' },
+          ],
         });
 
         if (projectType === 'back') {
@@ -242,7 +236,7 @@ export async function create(projectName?: string) {
         }
       }
 
-      // 步骤3: 选择Chrome插件类型  
+      // 步骤3: 选择Chrome插件类型
       if (step === 3) {
         const chromeTemplateList = Array.from(templates)
           .filter(([key]) => key.includes('chrome'))
@@ -255,12 +249,12 @@ export async function create(projectName?: string) {
         chromeTemplateList.push({
           name: '返回上一步',
           value: 'back',
-          description: '返回项目类型选择'
+          description: '返回项目类型选择',
         });
 
         const templateName: string = await safeSelect({
           message: '请选择Chrome插件类型',
-          choices: chromeTemplateList
+          choices: chromeTemplateList,
         });
 
         if (templateName === 'back') {
@@ -276,7 +270,6 @@ export async function create(projectName?: string) {
         break;
       }
     }
-
   } catch (error: any) {
     if (error?.message?.includes('User force closed')) {
       console.log('\n👋 感谢使用 onion-cli');
