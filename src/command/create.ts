@@ -73,7 +73,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-web-page-template',
     {
       name: 'web-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发web项目',
       branch: 'feature_web_page',
@@ -83,7 +83,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-chrome-newtab-extensions-template',
     {
       name: 'chrome-newtab-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome标签页模板',
       branch: 'main',
@@ -93,7 +93,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-chrome-sidebar-extensions-template',
     {
       name: 'chrome-sidebar-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome侧边栏模板',
       branch: 'feature_sider_extension',
@@ -103,7 +103,7 @@ export const templates: Map<string, TemplateInfo> = new Map([
     'vue3-Ts-chrome-popup-extensions-template',
     {
       name: 'chrome-popup-template',
-      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template',
+      downloadUrl: 'https://gitee.com/xuzhenxin110/onion-cli-template.git',
       backupUrl: 'https://github.com/Teernage/onion-vue-template.git',
       description: 'Vue3技术栈开发chrome弹窗模板',
       branch: 'feature_popup_extension',
