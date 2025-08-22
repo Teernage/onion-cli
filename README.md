@@ -4,7 +4,7 @@
 
 ## 🔗 相关链接
 
-- [📘 使用文档](https://teernage.github.io/onion-cli-homepage/)
+- [📘 使用文档](https://teernage.github.io/onion-cli/)
 - [💻 GitHub 仓库](https://github.com/Teernage/onion-cli)
 - [🐛 问题反馈](https://github.com/Teernage/onion-cli/issues)
 

@@ -1,12 +1,12 @@
 {
   "name": "xzx-onion-cli",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "onion-cli 脚手架",
   "repository": {
     "type": "git",
     "url": "https://github.com/Teernage/onion-cli.git"
   },
-  "homepage": "https://teernage.github.io/onion-cli-homepage/",
+  "homepage": "https://teernage.github.io/onion-cli/",
   "scripts": {
     "build": "rollup -c rollup.config.js --bundleConfigAsCjs",
     "test": "node ./dist create my-app"
