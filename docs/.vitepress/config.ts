@@ -19,12 +19,12 @@ export default defineConfigWithTheme({
           text: '快速开始',
           items: [
             {
-              text: 'web page(web项目模版)',
-              link: '/content/web',
-            },
-            {
               text: 'chrome crx(chrome插件模版)',
               link: '/content/chrome',
+            },
+            {
+              text: 'web page(web项目模版)',
+              link: '/content/web',
             },
           ],
         },
